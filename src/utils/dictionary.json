@@ -1,0 +1,9 @@
+{
+  "USERS": {
+    "ERROR": {
+      "READ": {
+        "NOT_FOUND": "Item not found."
+      }
+    }
+  }
+}
