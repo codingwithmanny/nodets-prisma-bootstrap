@@ -73,6 +73,12 @@ yarn start; # npm start;
 npx prisma studio;
 ```
 
+**Additional - Tear Down Database**
+
+```bash
+docker compose down --remove-orphans -v;
+```
+
 ## Production Commands
 
 `Build`
