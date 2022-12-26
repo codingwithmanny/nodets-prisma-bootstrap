@@ -10,7 +10,7 @@ import { buildSuccessResponse, buildErrorResponse } from '../helpers';
 /**
  * Validates successful response message formatting
  */
-test("test - buildSuccessResponse - { hello: 'there' }", () => {
+test("- buildSuccessResponse - { hello: 'there' }", () => {
   // Setup
   const data = { hello: 'there' };
 
@@ -26,7 +26,7 @@ test("test - buildSuccessResponse - { hello: 'there' }", () => {
 /**
  * Validates successful response message formatting with pagination
  */
-test("test - buildSuccessResponse - { hello: 'there' }, pagination { limit: 1, offset: 2, total: 3 }", () => {
+test("- buildSuccessResponse - { hello: 'there' }, pagination { limit: 1, offset: 2, total: 3 }", () => {
   // Setup
   const data = { hello: 'there' };
   const pagination = { limit: 1, offset: 2, total: 3 };
@@ -43,7 +43,7 @@ test("test - buildSuccessResponse - { hello: 'there' }, pagination { limit: 1, o
 /**
  * Validates successful response message formatting
  */
-test("test - buildErrorResponse - { hello: 'there' }", () => {
+test("- buildErrorResponse - { hello: 'there' }", () => {
   // Setup
   const data = { hello: 'there' };
 

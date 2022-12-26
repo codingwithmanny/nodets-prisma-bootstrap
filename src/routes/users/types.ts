@@ -1,3 +1,8 @@
+// Types
+// ========================================================
+/**
+ *
+ */
 export interface QueryUserFilters {
   query?: string | null;
   take?: number;
@@ -6,11 +11,14 @@ export interface QueryUserFilters {
   sort?: string;
 }
 
+/**
+ *
+ */
 export interface User {
-  id?: string;
-  firstName?: string;
-  lastName?: string;
-  email?: string;
-  createdAt?: string;
-  updatedAt?: Date;
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  createdAt: Date;
+  updatedAt: Date;
 }

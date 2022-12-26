@@ -2,10 +2,8 @@
 // ========================================================
 import { Router, Request, Response } from 'express';
 import { z } from 'zod';
-import { NotFound } from '../../utils/errorHandlers';
 import { buildSuccessResponse } from '../../utils/helpers';
-import dictionary from '../../utils/dictionary.json';
-import { UPDATE_USER } from './queries';
+import { CREATE_USER } from './queries';
 import ValidateMiddleware from '../../middlewares/validate';
 
 // Config
@@ -14,28 +12,28 @@ const router = Router();
 
 // Route
 // ========================================================
-const UpdateUser = async (req: Request, res: Response) => {
-  const { data } = await UPDATE_USER(req.params.id, req.body);
+const CreateUser = async (req: Request, res: Response) => {
+  console.log({ body: req.body });
 
-  if (!data) {
-    throw new NotFound(dictionary.USERS.ERROR.READ.NOT_FOUND);
-  }
+  const { data } = await CREATE_USER(req.body);
 
   return res.json(buildSuccessResponse(data));
 };
 
 // Middlewares
 // ========================================================
-router.put(
-  '/:id',
+router.post(
+  '/',
   ValidateMiddleware(
     z.object({
-      firstName: z.string().optional(),
-      lastName: z.string().optional(),
-      email: z.string().email().optional(),
+      body: z.object({
+        firstName: z.string(),
+        lastName: z.string(),
+        email: z.string().email(),
+      }),
     }),
   ),
-  UpdateUser,
+  CreateUser,
 );
 
 // Exports

@@ -1,7 +1,7 @@
 // Imports
 // ========================================================
 import { PrismaClient, User } from '@prisma/client';
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 
 // Config
 // ========================================================
@@ -18,8 +18,8 @@ const main = async () => {
     CREATED_USERS.push(
       await prisma.user.create({
         data: {
-          firstName: faker.fake(`{{name.firstName}}`),
-          lastName: faker.fake(`{{name.firstName}}`),
+          firstName: faker.name.firstName(),
+          lastName: faker.name.lastName(),
           email: faker.internet.email(),
         },
       }),
@@ -34,8 +34,9 @@ const main = async () => {
 // Init
 // ========================================================
 main()
-  .catch((e) => {
-    console.log(e);
+  .catch(async (e) => {
+    console.error(e);
+    await prisma.$disconnect();
     process.exit();
   })
   .finally(async () => {

@@ -49,11 +49,7 @@ app.use('/api', Routes);
 // Error Handler
 // ========================================================
 app.use((error: any, _req: Request, res: Response, next: NextFunction) => {
-  if (
-    error instanceof BadRequest ||
-    error instanceof Forbidden ||
-    error instanceof NotFound
-  ) {
+  if (['BadRequest', 'NotFound', 'Forbidden'].includes(error?.name)) {
     return res
       .status(error?.httpStatusCode ?? 400)
       .json(
@@ -65,9 +61,11 @@ app.use((error: any, _req: Request, res: Response, next: NextFunction) => {
     error instanceof Prisma.PrismaClientKnownRequestError ||
     error instanceof Prisma.PrismaClientValidationError
   ) {
+    console.log({ error: error });
+
     return res.status(400).json(
       buildErrorResponse({
-        message: error?.message ?? 'Unknown database error.',
+        message: error ?? 'Unknown database error.',
       }),
     );
   }

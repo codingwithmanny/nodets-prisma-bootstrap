@@ -17,65 +17,91 @@ git remote add origin https://github.com/your/newrepo;
 
 ## Requirements
 
-- NodeJS 14.17.5 or NVM
+- NodeJS v18.12.1 or NVM
 
 ## Local Setup
 
 While in project directory:
 
-**0 - (Optional) NVM Installation**
+### Step 0 - (Optional) NVM Installation
 
 ```bash
+# FROM ./
+
 nvm install;
 ```
 
-**1 - Install Depencies**
+### Step 1 - Install Dependecies
 
 ```bash
-yarn install; # npm install;
+# FROM ./
+
+pnpm install; # npm install;
 ```
 
-**2 - Start Database**
+### Step 2 - Start Database
 
 ```bash
+# FROM ./
+
 docker compose up -d;
 ```
 
-**3 - Run Migrations**
+### Step 3 - Set Environment Variables
 
 ```bash
-npx prisma migrate dev;
+# FROM ./
+
+cp .env.example .env;
 ```
 
-**4 - Run Seeds**
+### Step 4 - Run Migrations
 
 ```bash
-npx prisma db seed --preview-feature;
+# FROM ./
+
+pnpm run db:migrate;
 ```
 
-**5 - Server Start**
+### Step 5 - Run Seeds
+
+```bash
+# FROM ./
+
+pnpm run db:seed;
+```
+
+### Step 6 - Server Start
 
 `Development:`
 
 ```bash
-yarn dev; # npm dev;
+# FROM ./
+
+pnpm dev; # npm dev;
 ```
 
 `Production:`
 
 ```bash
-yarn start; # npm start;
+# FROM ./
+
+pnpm start; # npm start;
 ```
 
-**Optional - Prisma Studio**
+### Optional - Prisma Studio
 
 ```bash
-npx prisma studio;
+# FROM ./
+
+pnpm run db:studio;
 ```
 
-**Additional - Tear Down Database**
+### Additional - Tear Down Database
 
 ```bash
+# FROM ./
+
 docker compose down --remove-orphans -v;
 ```
 
@@ -84,13 +110,17 @@ docker compose down --remove-orphans -v;
 `Build`
 
 ```bash
-yarn build; # npm run build
+# FROM ./
+
+pnpm build; # npm run build
 ```
 
 `Build & Serve`
 
 ```bash
-yarn start; # npm start
+# FROM ./
+
+pnpm start; # npm start
 ```
 
 ## Tests
@@ -98,23 +128,25 @@ yarn start; # npm start
 `All Tests`
 
 ```bash
-yarn test; # npm run test;
+# FROM ./
+
+pnpm test; # npm run test;
 ```
 
 `Jest Watch`
 
 ```bash
-yarn test:jest; # npm run test:jest;
+pnpm test:jest; # npm run test:jest;
 ```
 
 `Jest Coverage`
 
 ```bash
-yarn test:coverage; # npm run test:coverage;
+pnpm test:coverage; # npm run test:coverage;
 ```
 
 `Eslint`
 
 ```bash
-yarn test:lint; # npm run test:lint
+pnpm test:lint; # npm run test:lint
 ```

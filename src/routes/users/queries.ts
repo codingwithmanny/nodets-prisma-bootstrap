@@ -10,7 +10,7 @@ const prisma = new PrismaClient();
 // Queries
 // ========================================================
 /**
- *
+ * List
  * @param param0
  * @returns
  */
@@ -21,6 +21,13 @@ export const QUERY_USERS = async ({
   orderBy = 'id',
   sort = 'asc',
 }: QueryUserFilters) => {
+  console.group('QUERY_USERS');
+  console.log({ query });
+  console.log({ take });
+  console.log({ skip });
+  console.log({ orderBy });
+  console.log({ sort });
+
   const optionOrderBy = ['id', 'firstName', 'lastName', 'email'].includes(
     orderBy,
   )
@@ -72,31 +79,63 @@ export const QUERY_USERS = async ({
 
   const data = await prisma.user.findMany(options);
 
+  console.groupEnd();
   return { data, pagination };
 };
 
 /**
- *
+ * Read
  * @param id
  */
 export const QUERY_USER = async (id: string) => {
+  console.group('QUERY_USER');
+  console.log({ id });
+
   const data = await prisma.user.findFirst({
     where: {
       id,
     },
   });
 
+  console.groupEnd();
   return { data };
 };
 
 /**
- *
+ * Create
+ * @param data
+ * @returns
+ */
+export const CREATE_USER = async (
+  payload: Omit<User, 'id' | 'updatedAt' | 'createdAt'>,
+) => {
+  console.group('CREATE_USER');
+  console.log({ payload });
+
+  const create: typeof payload = payload;
+
+  const data = await prisma.user.create({
+    data: create,
+  });
+
+  console.groupEnd();
+  return { data };
+};
+
+/**
+ * Update
  * @param id
  * @param data
  * @returns
  */
-export const UPDATE_USER = async (id: string, payload: Partial<User>) => {
+export const UPDATE_USER = async (
+  id: string,
+  payload: Omit<Partial<User>, 'id' | 'updatedAt' | 'createdAt'>,
+) => {
+  console.group('UPDATE_USER');
+  console.log({ id });
   console.log({ payload });
+
   if (
     !(await prisma.user.findFirst({
       where: {
@@ -131,14 +170,18 @@ export const UPDATE_USER = async (id: string, payload: Partial<User>) => {
     data: update,
   });
 
+  console.groupEnd();
   return { data };
 };
 
 /**
- *
+ * Delete
  * @param id
  */
 export const DELETE_USER = async (id: string) => {
+  console.group('DELETE_USER');
+  console.log({ id });
+
   if (
     !(await prisma.user.findFirst({
       where: {
@@ -154,5 +197,6 @@ export const DELETE_USER = async (id: string) => {
     },
   });
 
+  console.groupEnd();
   return { data };
 };
